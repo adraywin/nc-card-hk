@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nicolas Insixiengmay · Natixis CIB</title>
+<meta name="theme-color" content="#581d74">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="My Card">
+<meta name="robots" content="noindex, nofollow">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<style>
+:root{
+--purple:#581d74; --purple-deep:#3c1150; --blue:#3f589e; --yellow:#f5da86;
+--ink:#1f1530; --muted:#6b5f7a; --paper:#ffffff; --mist:#f6f2f9;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+background:var(--purple-deep); color:var(--ink);
+-webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:transparent;
+}
+.card{
+min-height:100%; max-width:480px; margin:0 auto; background:var(--paper);
+display:flex; flex-direction:column;
+}
+.band{
+position:relative; background:var(--purple); color:#fff;
+padding:calc(env(safe-area-inset-top) + 22px) 24px 64px;
+overflow:hidden;
+}
+.band::after{
+content:""; position:absolute; right:-40px; bottom:-30px; width:220px; height:120px;
+background:linear-gradient(135deg, transparent 0 38%, var(--blue) 38% 62%, var(--yellow) 62% 74%, transparent 74%);
+opacity:.95;
+}
+.logo{height:26px; display:block; position:relative; z-index:1}
+.logo-text{font-weight:700; font-size:15px; letter-spacing:.02em; position:relative; z-index:1}
+.logo-text span{font-weight:400; opacity:.8}
+.id{padding:0 24px; margin-top:-48px; position:relative; z-index:2}
+.photo{
+width:104px; height:104px; border-radius:50%; object-fit:cover; object-position:50% 12%; display:block;
+border:4px solid var(--paper); box-shadow:0 0 0 3px var(--yellow); background:var(--mist);
+}
+.initials{
+width:104px; height:104px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+border:4px solid var(--paper); box-shadow:0 0 0 3px var(--yellow);
+background:var(--blue); color:#fff; font-size:36px; font-weight:600;
+}
+h1{font-size:26px; line-height:1.15; font-weight:700; margin-top:14px; color:var(--purple)}
+.alt-name{font-size:17px; color:var(--muted); margin-top:2px}
+.title{font-size:15px; line-height:1.4; margin-top:8px}
+.company{font-size:14px; color:var(--muted); margin-top:2px}
+.contacts{list-style:none; margin:18px 16px 0}
+.contacts a{
+display:flex; align-items:center; gap:14px; padding:11px 8px; border-radius:10px;
+color:var(--ink); text-decoration:none; font-size:15px; min-height:44px;
+}
+.contacts a:active{background:var(--mist)}
+.contacts a:focus-visible{outline:3px solid var(--blue); outline-offset:1px}
+.ico{
+flex:0 0 34px; height:34px; border-radius:50%; background:var(--mist); color:var(--purple);
+display:flex; align-items:center; justify-content:center;
+}
+.ico svg{width:18px; height:18px}
+.lbl{display:block; font-size:12px; color:var(--muted)}
+.val{display:block; word-break:break-word}
+.qr-wrap{margin:18px 16px 0; background:var(--yellow); border-radius:18px; padding:16px; display:flex; gap:16px; align-items:center}
+.qr{background:#fff; border-radius:10px; padding:8px; flex:0 0 auto; line-height:0}
+.qr canvas{width:148px; height:148px; image-rendering:pixelated}
+.qr-note{font-size:15px; line-height:1.35; color:var(--purple-deep)}
+.qr-note strong{display:block; font-size:17px; margin-bottom:4px}
+.actions{display:flex; gap:10px; margin:16px 16px 0; padding-bottom:calc(env(safe-area-inset-bottom) + 20px)}
+.btn{
+flex:1; min-height:48px; border:0; border-radius:12px; font:inherit; font-size:15px; font-weight:600;
+display:flex; align-items:center; justify-content:center; gap:8px; cursor:pointer; text-decoration:none;
+}
+.btn svg{width:18px; height:18px}
+.btn-primary{background:var(--blue); color:#fff}
+.btn-secondary{background:var(--mist); color:var(--purple)}
+.btn:focus-visible{outline:3px solid var(--purple); outline-offset:2px}
+.btn:active{transform:scale(.98)}
+.zoom{position:fixed; inset:0; background:var(--purple); display:none; flex-direction:column;
+align-items:center; justify-content:center; gap:18px; z-index:10; color:#fff; padding:24px}
+.zoom.open{display:flex}
+.zoom .qr{padding:16px; border-radius:16px}
+.zoom canvas{width:min(78vw,340px); height:min(78vw,340px)}
+.zoom p{font-size:15px; opacity:.85}
+@media (max-height:740px){
+.band{padding-bottom:52px; padding-top:calc(env(safe-area-inset-top) + 16px)}
+.id{margin-top:-40px}
+.photo,.initials{width:80px;height:80px;font-size:28px}
+h1{font-size:22px;margin-top:10px} .title{font-size:14px;margin-top:4px} .company{font-size:13px}
+.contacts{margin-top:8px} .contacts a{padding:4px 8px;min-height:44px;gap:12px;font-size:14px}
+.ico{flex-basis:30px;height:30px} .lbl{font-size:11px}
+.qr-wrap{margin-top:10px;padding:12px} .qr canvas{width:118px;height:118px}
+.qr-note{font-size:14px} .qr-note strong{font-size:16px}
+.actions{margin-top:10px;padding-bottom:calc(env(safe-area-inset-bottom) + 12px)} .btn{min-height:44px}
+}
+@media (prefers-reduced-motion:reduce){ .btn:active{transform:none} }
+</style>
+</head>
+<body>
+<main class="card">
+<header class="band">
+<div id="logoSlot"></div>
+</header>
+<section class="id">
+<div id="photoSlot"></div>
+<h1 id="name"></h1>
+<div class="alt-name" id="altName"></div>
+<div class="title" id="title"></div>
+<div class="company" id="company"></div>
+</section>
+<ul class="contacts" id="contacts"></ul>
+<div class="qr-wrap" role="button" tabindex="0" id="qrPanel" aria-label="Show QR code full screen">
+<div class="qr" id="qrSmall"></div>
+<div class="qr-note"><strong>Scan to save my contact</strong>Point your phone camera here. Tap to enlarge.</div>
+</div>
+<div class="actions">
+<button class="btn btn-primary" id="saveBtn">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg>
+Save contact
+</button>
+<button class="btn btn-secondary" id="shareBtn">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v14"/></svg>
+Share card
+</button>
+</div>
+</main>
+<div class="zoom" id="zoom" role="dialog" aria-label="QR code">
+<div class="qr" id="qrBig"></div>
+<p>Tap anywhere to close</p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script>
+/* EDIT YOUR DETAILS HERE. Leave a field as "" to hide it. */
+const CONFIG = {
+firstName: "Nicolas",
+lastName:  "Insixiengmay",
+altName:   "",
+title:     "Executive Director, Head of Strategic Sourcing & Workplace, Asia Pacific and Middle East",
+company:   "Natixis Corporate & Investment Banking",
+mobile:    "+852 9439 3126",
+office:    "+852 3159 5892",
+email:     "nicolas.insixiengmay@natixis.com",
+address:   "Level 72, International Commerce Centre, 1 Austin Road West, Kowloon, Hong Kong",
+linkedin:  "",
+website:   "",
+photo:     "photo.jpg",
+logo:      ""
+};
+const $ = id => document.getElementById(id);
+const fullName = `${CONFIG.firstName} ${CONFIG.lastName}`.trim();
+$("name").textContent = fullName;
+$("altName").textContent = CONFIG.altName; if(!CONFIG.altName) $("altName").remove();
+$("title").textContent = CONFIG.title;
+$("company").textContent = CONFIG.company;
+document.title = fullName;
+if (CONFIG.logo) {
+$("logoSlot").innerHTML = `<img class="logo" src="${CONFIG.logo}" alt="${CONFIG.company}">`;
+} else {
+$("logoSlot").innerHTML = `<div class="logo-text">NATIXIS <span>Corporate &amp; Investment Banking</span></div>`;
+}
+const initials = (CONFIG.firstName[0]||"") + (CONFIG.lastName[0]||"");
+function showInitials(){ $("photoSlot").innerHTML = `<div class="initials" aria-hidden="true">${initials}</div>`; }
+if (CONFIG.photo) {
+const img = new Image(); img.className = "photo"; img.alt = fullName;
+img.onerror = showInitials; img.src = CONFIG.photo;
+$("photoSlot").appendChild(img);
+} else showInitials();
+const icons = {
+phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>',
+office:'<rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/>',
+mail:'<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/>',
+pin:'<path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>',
+in:'<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/>',
+web:'<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>'
+};
+const tel = n => "tel:" + n.replace(/[^\d+]/g,"");
+const rows = [
+CONFIG.mobile   && {ico:"phone",  lbl:"Mobile",   val:CONFIG.mobile,  href:tel(CONFIG.mobile)},
+CONFIG.office   && {ico:"office", lbl:"Office",   val:CONFIG.office,  href:tel(CONFIG.office)},
+CONFIG.email    && {ico:"mail",   lbl:"Email",    val:CONFIG.email,   href:"mailto:"+CONFIG.email},
+CONFIG.address  && {ico:"pin",    lbl:"Office address", val:CONFIG.address, href:"https://maps.google.com/?q="+encodeURIComponent(CONFIG.address)},
+CONFIG.linkedin && {ico:"in",     lbl:"LinkedIn", val:CONFIG.linkedin.replace(/^https?:\/\/(www\.)?/,""), href:CONFIG.linkedin},
+CONFIG.website  && {ico:"web",    lbl:"Website",  val:CONFIG.website.replace(/^https?:\/\/(www\.)?/,""),  href:CONFIG.website}
+].filter(Boolean);
+$("contacts").innerHTML = rows.map(r =>
+`<li><a href="${r.href}" ${/^https/.test(r.href)?'target="_blank" rel="noopener"':''}>
+<span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${icons[r.ico]}</svg></span>
+<span><span class="lbl">${r.lbl}</span><span class="val">${r.val}</span></span>
+</a></li>`).join("");
+const esc = s => String(s).replace(/([,;\\])/g,"\\$1");
+function vcard(){
+const L = ["BEGIN:VCARD","VERSION:3.0",
+`N:${esc(CONFIG.lastName)};${esc(CONFIG.firstName)};;;`, `FN:${esc(fullName)}`];
+if (CONFIG.company) L.push(`ORG:${esc(CONFIG.company)}`);
+if (CONFIG.title)   L.push(`TITLE:${esc(CONFIG.title)}`);
+if (CONFIG.mobile)  L.push(`TEL;TYPE=CELL:${CONFIG.mobile.replace(/[^\d+]/g,"")}`);
+if (CONFIG.office)  L.push(`TEL;TYPE=WORK:${CONFIG.office.replace(/[^\d+]/g,"")}`);
+if (CONFIG.email)   L.push(`EMAIL;TYPE=WORK:${CONFIG.email}`);
+if (CONFIG.address) L.push(`ADR;TYPE=WORK:;;${esc(CONFIG.address)};;;;`);
+if (CONFIG.linkedin)L.push(`URL:${CONFIG.linkedin}`);
+else if (CONFIG.website) L.push(`URL:${CONFIG.website}`);
+L.push("END:VCARD");
+return L.join("\r\n");
+}
+qrcode.stringToBytes = qrcode.stringToBytesFuncs["UTF-8"];
+function drawQR(el){
+const qr = qrcode(0, "L"); qr.addData(vcard()); qr.make();
+const n = qr.getModuleCount(), quiet = 2, scale = 8, size = (n + quiet*2) * scale;
+const c = document.createElement("canvas"); c.width = c.height = size;
+const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0,0,size,size);
+g.fillStyle = "#3c1150";
+for (let r=0;r<n;r++) for (let col=0;col<n;col++)
+if (qr.isDark(r,col)) g.fillRect((col+quiet)*scale,(r+quiet)*scale,scale,scale);
+c.setAttribute("role","img"); c.setAttribute("aria-label","QR code with contact details");
+el.innerHTML = ""; el.appendChild(c);
+}
+drawQR($("qrSmall")); drawQR($("qrBig"));
+const zoom = $("zoom");
+const openZoom = () => zoom.classList.add("open");
+$("qrPanel").addEventListener("click", openZoom);
+$("qrPanel").addEventListener("keydown", e => { if(e.key==="Enter"||e.key===" "){e.preventDefault();openZoom();} });
+zoom.addEventListener("click", () => zoom.classList.remove("open"));
+document.addEventListener("keydown", e => { if(e.key==="Escape") zoom.classList.remove("open"); });
+$("saveBtn").addEventListener("click", () => {
+const blob = new Blob([vcard()], {type:"text/vcard;charset=utf-8"});
+const file = new File([blob], `${fullName.replace(/\s+/g,"_")}.vcf`, {type:"text/vcard"});
+if (navigator.canShare && navigator.canShare({files:[file]})) {
+navigator.share({files:[file], title:fullName}).catch(()=>{});
+} else {
+const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = file.name;
+document.body.appendChild(a); a.click(); a.remove();
+}
+});
+$("shareBtn").addEventListener("click", async () => {
+const data = {title:fullName, text:`${fullName}, ${CONFIG.company}`, url:location.href};
+if (navigator.share) { try { await navigator.share(data); } catch(e){} }
+else { await navigator.clipboard.writeText(location.href); $("shareBtn").lastChild.textContent = " Link copied"; }
+});
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+</script>
+</body>
+</html>
