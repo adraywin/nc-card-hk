@@ -10,6 +10,19 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="My Card">
 <meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Executive Director, Head of Strategic Sourcing &amp; Workplace, Asia Pacific and Middle East, Natixis Corporate &amp; Investment Banking">
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="Natixis CIB">
+<meta property="og:title" content="Nicolas Insixiengmay">
+<meta property="og:description" content="Executive Director, Head of Strategic Sourcing &amp; Workplace, Asia Pacific and Middle East, Natixis CIB. Tap to save my contact.">
+<meta property="og:url" content="https://adraywin.github.io/nc-card-hk/">
+<meta property="og:image" content="https://adraywin.github.io/nc-card-hk/og-image.jpg">
+<meta property="og:image:secure_url" content="https://adraywin.github.io/nc-card-hk/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Nicolas Insixiengmay, Natixis Corporate &amp; Investment Banking">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icon-192.png">
@@ -30,17 +43,13 @@ min-height:100%; max-width:480px; margin:0 auto; background:var(--paper);
 display:flex; flex-direction:column;
 }
 .band{
-position:relative; background:var(--purple); color:#fff;
-padding:calc(env(safe-area-inset-top) + 22px) 24px 64px;
-overflow:hidden;
+position:relative; color:#fff;
+background:radial-gradient(130% 160% at 90% 0%, #7a2f9a 0%, #581d74 48%, #4a1863 100%);
+padding:calc(env(safe-area-inset-top) + 22px) 20px 64px;
+display:flex; justify-content:flex-end; align-items:flex-start;
 }
-.band::after{
-content:""; position:absolute; right:-40px; bottom:-30px; width:220px; height:120px;
-background:linear-gradient(135deg, transparent 0 38%, var(--blue) 38% 62%, var(--yellow) 62% 74%, transparent 74%);
-opacity:.95;
-}
-.logo{height:26px; display:block; position:relative; z-index:1}
-.logo-text{font-weight:700; font-size:15px; letter-spacing:.02em; position:relative; z-index:1}
+.logo{height:46px; width:auto; display:block}
+.logo-text{font-weight:700; font-size:15px; letter-spacing:.02em}
 .logo-text span{font-weight:400; opacity:.8}
 .id{padding:0 24px; margin-top:-48px; position:relative; z-index:2}
 .photo{
@@ -92,7 +101,7 @@ align-items:center; justify-content:center; gap:18px; z-index:10; color:#fff; pa
 .zoom canvas{width:min(78vw,340px); height:min(78vw,340px)}
 .zoom p{font-size:15px; opacity:.85}
 @media (max-height:740px){
-.band{padding-bottom:52px; padding-top:calc(env(safe-area-inset-top) + 16px)}
+.band{padding-bottom:50px; padding-top:calc(env(safe-area-inset-top) + 16px)} .logo{height:38px}
 .id{margin-top:-40px}
 .photo,.initials{width:80px;height:80px;font-size:28px}
 h1{font-size:22px;margin-top:10px} .title{font-size:14px;margin-top:4px} .company{font-size:13px}
@@ -153,7 +162,7 @@ address:   "Level 72, International Commerce Centre, 1 Austin Road West, Kowloon
 linkedin:  "",
 website:   "",
 photo:     "photo.jpg",
-logo:      ""
+logo:      "logo.webp"
 };
 const $ = id => document.getElementById(id);
 const fullName = `${CONFIG.firstName} ${CONFIG.lastName}`.trim();
