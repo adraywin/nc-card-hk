@@ -132,10 +132,10 @@ h1{font-size:22px;margin-top:10px} .title{font-size:14px;margin-top:4px} .compan
 <div class="qr-note"><strong>Scan to save my contact</strong>Point your phone camera here. Tap to enlarge.</div>
 </div>
 <div class="actions">
-<button class="btn btn-primary" id="saveBtn">
+<a class="btn btn-primary" id="saveBtn" href="contact.vcf">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg>
 Save contact
-</button>
+</a>
 <button class="btn btn-secondary" id="shareBtn">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v14"/></svg>
 Share card
@@ -239,16 +239,6 @@ $("qrPanel").addEventListener("click", openZoom);
 $("qrPanel").addEventListener("keydown", e => { if(e.key==="Enter"||e.key===" "){e.preventDefault();openZoom();} });
 zoom.addEventListener("click", () => zoom.classList.remove("open"));
 document.addEventListener("keydown", e => { if(e.key==="Escape") zoom.classList.remove("open"); });
-$("saveBtn").addEventListener("click", () => {
-const blob = new Blob([vcard()], {type:"text/vcard;charset=utf-8"});
-const file = new File([blob], `${fullName.replace(/\s+/g,"_")}.vcf`, {type:"text/vcard"});
-if (navigator.canShare && navigator.canShare({files:[file]})) {
-navigator.share({files:[file], title:fullName}).catch(()=>{});
-} else {
-const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = file.name;
-document.body.appendChild(a); a.click(); a.remove();
-}
-});
 $("shareBtn").addEventListener("click", async () => {
 const data = {title:fullName, text:`${fullName}, ${CONFIG.company}`, url:location.href};
 if (navigator.share) { try { await navigator.share(data); } catch(e){} }
